@@ -20,37 +20,37 @@
 
 Установщик Oracle VirtualBox версии 7.2.22 загружен с официального сайта [virtualbox.org](https://www.virtualbox.org/wiki/Downloads). Выполнена установка программного обеспечения со стандартными параметрами конфигурации.
 
-![[site_oracle.png]]
+![site_oracle.png](1/site_oracle.png)
 
  После этого был запущен установщик и выполнена установка со стандартными параметрами и дальнейшим запуском программы-гипервизора.
  
-![[download_Oracle.png]]
+![download_Oracle.png](1/download_Oracle.png)
 ### 1.2. Создание виртуальной машины
 
 Установочный образ `debian-13.7.0-amd64-netinst.iso` загружен с официального сайта проекта [debian.org](https://www.debian.org/):
-![[site_debian.png]]
+![site_debian.png](1/site_debian.png)
 
 В мастере создания виртуальной машины задано имя `Debian` и указан путь к ISO-образу `debian-13.7.0-amd64-netinst.iso`. Гипервизор автоматически идентифицировал гостевую операционную систему как Debian 13 Trixie (64-bit).
-![[oracle_vm.png|500]]
+![oracle_vm.png](1/oracle_vm.png)
 
 В параметрах автоматической установки были заданы следующие значения: имя пользователя `zgu`, сетевое имя хоста `Debian` и доменное имя оставляем `myguest.virtualbox.org`
-![[passw_vm.png]]
+![passw_vm.png](1/passw_vm.png)
 
 Виртуальному оборудованию выделены ресурсы согласно заданию:
 - оперативная память: **4096 МБ**;
 - процессор: **2 ЦПУ**;
 - жёсткий диск: **20 ГБ**.
-![[cpu_vm.png]]
-![[storage_vm.png]]
+![cpu_vm.png](1/cpu_vm.png)
+![storage_vm.png](1/storage_vm.png)
 ---
 
 ## 2. Установка Debian
 
 После завершения автоматической установки виртуальная машина запустилась, и загрузился рабочий стол Debian.
-![[vm_debian.png]]
+![vm_debian.png](1/vm_debian.png)
 
 Проверка работоспособности системы с помощью запуска браузера Firefox. 
-![[Brause_vm.png]]
+![Brause_vm.png](1/Brause_vm.png)
 
 Основные параметры системы:
 
@@ -65,7 +65,7 @@
 
 Для первого сетевого адаптера выбран режим NAT (Bridged был протестирован, но для основной работы выбран NAT). В данной конфигурации виртуальная машина получает доступ к интернету через хост-систему, но остаётся недоступной для прямых входящих подключений из внешней сети, поэтому для организации SSH-доступа была настроена функция проброса портов.
 
-![[NAT_vm.png]]
+![NAT_vm.png](1/NAT_vm.png)
 
 ### 3.2. Обновление системы
 
@@ -75,8 +75,8 @@
 sudo apt-get update
 sudo apt-get upgrade
 ```
-Команда `apt-get update` успешно обратилась к сетевым репозиториям (`deb.debian.org`, `security.debian.org`).
-![[apt_up_upd.png]]
+Команды `apt-get update` и `apt-get upgrade` успешно обратились к сетевым репозиториям (`deb.debian.org`, `security.debian.org`).
+![apt_up_upd.png](1/apt_up_upd.png)
 
 ---
 
@@ -89,14 +89,14 @@ sudo apt-get upgrade
 ```bash
 sudo apt install -y openssh-server
 ```
-![[ssh_vm.png]]
+![ssh_vm.png](1/ssh_vm.png)
 
 Служба SSH включена в автозагрузку и немедленно запущена. Для верификации статуса выполнена команда `sudo systemctl status ssh`. Согласно выводу, сервис `ssh.service` находится в состоянии `active (running)` и принимает входящие соединения на стандартном порту `22`.
 
 ```bash
 sudo systemctl status ssh
 ```
-![[status_ssh_vm.png|516]]
+![status_ssh_vm.png](1/status_ssh_vm.png)
 
 ### 4.2. Проброс порта для режима NAT
 
@@ -106,7 +106,7 @@ sudo systemctl status ssh
 | ------ | -------- | ----------- | ---------- | ----------- | ---------- |
 | ssh_vm | TCP      |             | 22         |             | 22         |
 Теперь подключение к порту `22` на `127.0.0.1` хоста перенаправляется на порт `22` виртуальной машины.
-![[ssh_port.png]]
+![ssh_port.png](1/ssh_port.png)
 
 ### 4.3. Подключение по паролю
 
@@ -117,10 +117,10 @@ ssh zgu@127.0.0.1
 ```
 
 После ввода пароля пользователя `zgu` вход выполнен успешно.
-![[ssh_mainPC.png]]
+![ssh_mainPC.png](1/ssh_mainPC.png)
 
 И так же подключение к виртуальной машине осуществлялось с явным указанием порта через флаг `-p`, так как стандартный порт SSH был перенаправлен на хост-систему:
-![[ssh_mainPC_port.png]]
+![ssh_mainPC_port.png](1/ssh_mainPC_port.png)
 
 ### 4.4. Подключение по ключу
 
@@ -129,7 +129,7 @@ ssh zgu@127.0.0.1
 ```bash
 ssh-keygen -t ed25519
 ```
-![[ssh_createkey.png]]
+![ssh_createkey.png](1/ssh_createkey.png)
 
 Для настройки беспарольного доступа публичный ключ (`id_ed25519.pub`) был скопирован с хост-машины и добавлен в файл `~/.ssh/authorized_keys` гостевой системы вручную через текстовый редактор `nano`.
 
@@ -145,7 +145,7 @@ chmod 600 ~/.ssh/authorized_keys
 ```bash
 ssh zgu@127.0.0.1
 ```
-![[ssh_without_passw.png]]
+![ssh_without_passw.png](1/ssh_without_passw.png)
 
 
 ---
