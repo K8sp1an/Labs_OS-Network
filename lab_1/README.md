@@ -145,7 +145,7 @@ chmod 600 ~/.ssh/authorized_keys
 ```bash
 ssh zgu@127.0.0.1
 ```
-![ssh_without_passw.png](1/ssh_without_passw.png)
+![ssh_without_passw.png](1/image.png)
 
 
 ---
