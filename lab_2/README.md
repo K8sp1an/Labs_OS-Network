@@ -14,7 +14,7 @@ sudo adduser admin
 sudo adduser user1
 sudo adduser user2
 ```
-![2\create_new_users.png](2\create_new_users.png)
+![2\create_new_users.png](2/create_new_users.png)
 
 
 Дополнительно проверено создание пользователя с домашним каталогом через низкоуровневую команду `useradd`:
