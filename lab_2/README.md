@@ -14,20 +14,20 @@ sudo adduser admin
 sudo adduser user1
 sudo adduser user2
 ```
-![2\create_new_users.png](2/create_new_users.png)
+![2/create_new_users.png](2/create_new_users.png)
 
 
 Дополнительно проверено создание пользователя с домашним каталогом через низкоуровневую команду `useradd`:
 
-![2\Create_test.png](2\Create_test.png)
+![2/Create_test.png](2/Create_test.png)
 
 ### 1.2. Создание групп и добавление пользователей
 
 Созданы две группы — `testers` и `developers` — с помощью команды `groupadd`:
 
 
-![2\group_create_testers.png](2\group_create_testers.png)
-![2\image.png](2\image.png)
+![2/group_create_testers.png](2/group_create_testers.png)
+![2/image.png](2/image.png)
 
 Далее пользователи распределены по группам с помощью `gpasswd -a` и `usermod -aG`: пользователь `admin` добавлен в группу `developers`, а `user1`, `user2` и `test` — в группу `testers`:
 
@@ -38,7 +38,7 @@ sudo adduser user2
 
 Проверка состава созданных групп выполнена командой `getent`:
 
-![2\group_facts.png](2\group_facts.png)
+![2/group_facts.png](2/group_facts.png)
 
 
 
@@ -50,23 +50,23 @@ sudo adduser user2
 
 В домашнем каталоге пользователя `admin` созданы подкаталоги `/home/admin/data` и `/home/admin/logs`:
 
-![2\group_create_folder.png](2\group_create_folder.png)
+![2/group_create_folder.png](2/group_create_folder.png)
 
 ### 2.2. Настройка владельцев и прав доступа
 
 Согласно заданию, только пользователь `admin` должен иметь права на редактирование файлов в каталоге `data` (`700` — полный доступ только владельцу `admin`), а группа `developers` должна иметь права на чтение и запись в каталог `logs` (`770` — полный доступ владельцу `admin` и группе `developers`):
 
-![2\group_user_perm_data.png](2\group_user_perm_data.png)
+![2/group_user_perm_data.png](2/group_user_perm_data.png)
 
-![2\group_user_perm_logs.png](2\group_user_perm_logs.png)
+![2/group_user_perm_logs.png](2/group_user_perm_logs.png)
 
 
 Проверка назначенных прав доступа показала:
 - для `data`: `drwx------ 2 admin admin` — доступ есть только у пользователя `admin`;
 - для `logs`: `drwxrwx--- 2 admin developers` — чтение, запись и вход в каталог доступны владельцу `admin` и участникам группы `developers`.
 
-![2\perm_data.png](2\perm_data.png)
-![2\perm_log.png](2\perm_logs.png)
+![2/perm_data.png](2/perm_data.png)
+![2/perm_log.png](2/perm_logs.png)
 
 
 ---
@@ -88,13 +88,13 @@ sudo adduser user2
 
 Для смены пароля пользователя `user1` выполнена команда `passwd`:
 
-![2\password_change.png](2\password_change.png)
+![2/password_change.png](2/password_change.png)
 
 ### 3.3. Блокировка учётной записи пользователя user2
 
 Для блокировки учётной записи пользователя `user2` использована команда `usermod -L`, после чего выполнена попытка входа под этим пользователем (`su - user2`), завершившаяся ошибкой аутентификации:
 
-![2\user_lock_perm.png](2\user_lock_perm.png)
+![2/user_lock_perm.png](2/user_lock_perm.png)
 
 ---
 
